@@ -1,0 +1,40 @@
+version: '3'
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task --list
+
+  bootstrap:
+    desc: install deps
+    aliases: [b]
+    deps: [bootstrap-go, bootstrap-js]
+
+  bootstrap-go:
+    desc: install go deps
+    aliases: [bgo]
+    cmds:
+      - cd go
+      - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+      - go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+
+  bootstrap-js:
+    desc: install js deps
+    aliases: [bjs]
+    cmds:
+      - cd js && npm install
+
+  connect-gen-js:
+    desc: connect generate js proto
+    aliases: [cjs]
+    cmds:
+      - |
+        cd js && \
+        mkdir -p src/gen/eliza/v1/ && \
+        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ../proto \
+          --es_out src/gen/eliza/v1 \
+          --es_opt target=js \
+          --connect-es_out src/gen/eliza/v1 \
+          --connect-es_opt target=js \
+          eliza.proto
