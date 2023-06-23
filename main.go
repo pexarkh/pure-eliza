@@ -29,9 +29,9 @@ import (
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"
 	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
-	"github.com/pexarkh/pure-eliza/internal/eliza"
-	elizav1 "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1"
-	elizav1connect "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1/elizaconnect"
+	elizacore "github.com/pexarkh/pure-eliza/internal/eliza"
+	"github.com/pexarkh/pure-eliza/internal/gen/eliza"
+	"github.com/pexarkh/pure-eliza/internal/gen/eliza/elizaconnect"
 	"github.com/rs/cors"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/http2"
@@ -45,7 +45,7 @@ type elizaServer struct {
 
 // NewElizaServer returns a new elizaServer.  streamDelay applies to server-streaming and will delay the responses
 // sent on a stream by the given duration.
-func NewElizaServer(streamDelay time.Duration) elizav1connect.ElizaServiceHandler {
+func NewElizaServer(streamDelay time.Duration) elizaconnect.ElizaServiceHandler {
 	return &elizaServer{
 		streamDelay: streamDelay,
 	}
@@ -53,17 +53,17 @@ func NewElizaServer(streamDelay time.Duration) elizav1connect.ElizaServiceHandle
 
 func (e *elizaServer) Say(
 	ctx context.Context,
-	req *connect.Request[elizav1.SayRequest],
-) (*connect.Response[elizav1.SayResponse], error) {
-	reply, _ := eliza.Reply(req.Msg.Sentence) // ignore end-of-conversation detection
-	return connect.NewResponse(&elizav1.SayResponse{
+	req *connect.Request[eliza.SayRequest],
+) (*connect.Response[eliza.SayResponse], error) {
+	reply, _ := elizacore.Reply(req.Msg.Sentence) // ignore end-of-conversation detection
+	return connect.NewResponse(&eliza.SayResponse{
 		Sentence: reply,
 	}), nil
 }
 
 func (e *elizaServer) Converse(
 	ctx context.Context,
-	stream *connect.BidiStream[elizav1.ConverseRequest, elizav1.ConverseResponse],
+	stream *connect.BidiStream[eliza.ConverseRequest, eliza.ConverseResponse],
 ) error {
 	for {
 		if err := ctx.Err(); err != nil {
@@ -75,8 +75,8 @@ func (e *elizaServer) Converse(
 		} else if err != nil {
 			return fmt.Errorf("receive request: %w", err)
 		}
-		reply, endSession := eliza.Reply(request.Sentence)
-		if err := stream.Send(&elizav1.ConverseResponse{Sentence: reply}); err != nil {
+		reply, endSession := elizacore.Reply(request.Sentence)
+		if err := stream.Send(&eliza.ConverseResponse{Sentence: reply}); err != nil {
 			return fmt.Errorf("send response: %w", err)
 		}
 		if endSession {
@@ -150,20 +150,20 @@ func main() {
 		http.RedirectHandler("https://connect.build/demo", http.StatusFound),
 	)
 	compress1KB := connect.WithCompressMinBytes(1024)
-	mux.Handle(elizav1connect.NewElizaServiceHandler(
+	mux.Handle(elizaconnect.NewElizaServiceHandler(
 		NewElizaServer(*streamDelayArg),
 		compress1KB,
 	))
 	mux.Handle(grpchealth.NewHandler(
-		grpchealth.NewStaticChecker(elizav1connect.ElizaServiceName),
+		grpchealth.NewStaticChecker(elizaconnect.ElizaServiceName),
 		compress1KB,
 	))
 	mux.Handle(grpcreflect.NewHandlerV1(
-		grpcreflect.NewStaticReflector(elizav1connect.ElizaServiceName),
+		grpcreflect.NewStaticReflector(elizaconnect.ElizaServiceName),
 		compress1KB,
 	))
 	mux.Handle(grpcreflect.NewHandlerV1Alpha(
-		grpcreflect.NewStaticReflector(elizav1connect.ElizaServiceName),
+		grpcreflect.NewStaticReflector(elizaconnect.ElizaServiceName),
 		compress1KB,
 	))
 	addr := "localhost:8080"
@@ -199,14 +199,14 @@ func main() {
 
 func (e *elizaServer) Introduce(
 	ctx context.Context,
-	req *connect.Request[elizav1.IntroduceRequest],
-	stream *connect.ServerStream[elizav1.IntroduceResponse],
+	req *connect.Request[eliza.IntroduceRequest],
+	stream *connect.ServerStream[eliza.IntroduceResponse],
 ) error {
 	name := req.Msg.Name
 	if name == "" {
 		name = "Anonymous User"
 	}
-	intros := eliza.GetIntroResponses(name)
+	intros := elizacore.GetIntroResponses(name)
 	var ticker *time.Ticker
 	if e.streamDelay > 0 {
 		ticker = time.NewTicker(e.streamDelay)
@@ -220,7 +220,7 @@ func (e *elizaServer) Introduce(
 			case <-ticker.C:
 			}
 		}
-		if err := stream.Send(&elizav1.IntroduceResponse{Sentence: resp}); err != nil {
+		if err := stream.Send(&eliza.IntroduceResponse{Sentence: resp}); err != nil {
 			return err
 		}
 	}

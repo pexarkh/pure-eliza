@@ -15,7 +15,7 @@
 syntax = "proto3";
 
 
-option go_package = "github.com/pexarkh/pure-eliza/internal/eliza;eliza";
+option go_package = "github.com/pexarkh/pure-eliza/internal/gen/eliza;eliza";
 package eliza;
 
 // ElizaService provides a way to talk to the ELIZA, which is a port of
