@@ -22,7 +22,7 @@ import (
 	context "context"
 	errors "errors"
 	connect_go "github.com/bufbuild/connect-go"
-	v1 "github.com/pexarkh/pure-eliza/internal/eliza/v1"
+	v1 "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1"
 	http "net/http"
 	strings "strings"
 )

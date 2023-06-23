@@ -32,7 +32,7 @@ tasks:
       - |
         cd js && \
         mkdir -p src/gen/eliza/v1/ && \
-        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ../proto \
+        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ./proto \
           --es_out src/gen/eliza/v1 \
           --es_opt target=js \
           --connect-es_out src/gen/eliza/v1 \
@@ -44,9 +44,8 @@ tasks:
     aliases: [gengo]
     cmds:
       - |
-        cd go && \
         mkdir -p internal/gen/eliza/v1/ && \
-        protoc -I ../proto \
+        protoc -I ./proto \
           --go_out internal/gen/eliza/v1 --go_opt=paths=source_relative \
           --connect-go_out internal/gen/eliza/v1 --connect-go_opt=paths=source_relative \
           eliza.proto
