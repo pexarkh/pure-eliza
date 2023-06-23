@@ -22,7 +22,7 @@ import (
 	context "context"
 	errors "errors"
 	connect_go "github.com/bufbuild/connect-go"
-	v1 "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1"
+	v1 "github.com/pexarkh/pure-eliza/internal/eliza/v1"
 	http "net/http"
 	strings "strings"
 )
@@ -36,7 +36,7 @@ const _ = connect_go.IsAtLeastVersion0_1_0
 
 const (
 	// ElizaServiceName is the fully-qualified name of the ElizaService service.
-	ElizaServiceName = "internal.eliza.v1.ElizaService"
+	ElizaServiceName = "eliza.v1.ElizaService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -48,14 +48,14 @@ const (
 // period.
 const (
 	// ElizaServiceSayProcedure is the fully-qualified name of the ElizaService's Say RPC.
-	ElizaServiceSayProcedure = "/internal.eliza.v1.ElizaService/Say"
+	ElizaServiceSayProcedure = "/eliza.v1.ElizaService/Say"
 	// ElizaServiceConverseProcedure is the fully-qualified name of the ElizaService's Converse RPC.
-	ElizaServiceConverseProcedure = "/internal.eliza.v1.ElizaService/Converse"
+	ElizaServiceConverseProcedure = "/eliza.v1.ElizaService/Converse"
 	// ElizaServiceIntroduceProcedure is the fully-qualified name of the ElizaService's Introduce RPC.
-	ElizaServiceIntroduceProcedure = "/internal.eliza.v1.ElizaService/Introduce"
+	ElizaServiceIntroduceProcedure = "/eliza.v1.ElizaService/Introduce"
 )
 
-// ElizaServiceClient is a client for the internal.eliza.v1.ElizaService service.
+// ElizaServiceClient is a client for the eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
 	// Say is a unary request demo. This method should allow for a one sentence
 	// response given a one sentence request.
@@ -68,10 +68,10 @@ type ElizaServiceClient interface {
 	Introduce(context.Context, *connect_go.Request[v1.IntroduceRequest]) (*connect_go.ServerStreamForClient[v1.IntroduceResponse], error)
 }
 
-// NewElizaServiceClient constructs a client for the internal.eliza.v1.ElizaService service. By
-// default, it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses,
-// and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the
-// connect.WithGRPC() or connect.WithGRPCWeb() options.
+// NewElizaServiceClient constructs a client for the eliza.v1.ElizaService service. By default, it
+// uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
+// uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
+// connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
@@ -103,22 +103,22 @@ type elizaServiceClient struct {
 	introduce *connect_go.Client[v1.IntroduceRequest, v1.IntroduceResponse]
 }
 
-// Say calls internal.eliza.v1.ElizaService.Say.
+// Say calls eliza.v1.ElizaService.Say.
 func (c *elizaServiceClient) Say(ctx context.Context, req *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error) {
 	return c.say.CallUnary(ctx, req)
 }
 
-// Converse calls internal.eliza.v1.ElizaService.Converse.
+// Converse calls eliza.v1.ElizaService.Converse.
 func (c *elizaServiceClient) Converse(ctx context.Context) *connect_go.BidiStreamForClient[v1.ConverseRequest, v1.ConverseResponse] {
 	return c.converse.CallBidiStream(ctx)
 }
 
-// Introduce calls internal.eliza.v1.ElizaService.Introduce.
+// Introduce calls eliza.v1.ElizaService.Introduce.
 func (c *elizaServiceClient) Introduce(ctx context.Context, req *connect_go.Request[v1.IntroduceRequest]) (*connect_go.ServerStreamForClient[v1.IntroduceResponse], error) {
 	return c.introduce.CallServerStream(ctx, req)
 }
 
-// ElizaServiceHandler is an implementation of the internal.eliza.v1.ElizaService service.
+// ElizaServiceHandler is an implementation of the eliza.v1.ElizaService service.
 type ElizaServiceHandler interface {
 	// Say is a unary request demo. This method should allow for a one sentence
 	// response given a one sentence request.
@@ -153,20 +153,20 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect_go.HandlerO
 		svc.Introduce,
 		opts...,
 	))
-	return "/internal.eliza.v1.ElizaService/", mux
+	return "/eliza.v1.ElizaService/", mux
 }
 
 // UnimplementedElizaServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedElizaServiceHandler struct{}
 
 func (UnimplementedElizaServiceHandler) Say(context.Context, *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("internal.eliza.v1.ElizaService.Say is not implemented"))
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Say is not implemented"))
 }
 
 func (UnimplementedElizaServiceHandler) Converse(context.Context, *connect_go.BidiStream[v1.ConverseRequest, v1.ConverseResponse]) error {
-	return connect_go.NewError(connect_go.CodeUnimplemented, errors.New("internal.eliza.v1.ElizaService.Converse is not implemented"))
+	return connect_go.NewError(connect_go.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Converse is not implemented"))
 }
 
 func (UnimplementedElizaServiceHandler) Introduce(context.Context, *connect_go.Request[v1.IntroduceRequest], *connect_go.ServerStream[v1.IntroduceResponse]) error {
-	return connect_go.NewError(connect_go.CodeUnimplemented, errors.New("internal.eliza.v1.ElizaService.Introduce is not implemented"))
+	return connect_go.NewError(connect_go.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Introduce is not implemented"))
 }

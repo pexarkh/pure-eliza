@@ -15,8 +15,8 @@
 syntax = "proto3";
 
 
-option go_package = "github.com/pexarkh/pure-eliza/internal/eliza/v1;eliza";
-package internal.eliza.v1;
+option go_package = "github.com/pexarkh/pure-eliza/internal/eliza;eliza";
+package eliza;
 
 // ElizaService provides a way to talk to the ELIZA, which is a port of
 // the DOCTOR script for Joseph Weizenbaum's original ELIZA program.
