@@ -13,7 +13,7 @@ tasks:
 
   bootstrap-go:
     desc: install go deps
-    aliases: [bgo]
+    aliases: [bg]
     cmds:
       - cd go
       - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
@@ -21,13 +21,13 @@ tasks:
 
   bootstrap-js:
     desc: install js deps
-    aliases: [bjs]
+    aliases: [bj]
     cmds:
       - cd js && npm install
 
   connect-gen-js:
     desc: connect generate js proto
-    aliases: [gjs]
+    aliases: [cj]
     cmds:
       - |
         cd js && \
@@ -41,7 +41,7 @@ tasks:
 
   connect-gen-go:
     desc: connect generate js proto
-    aliases: [ggo]
+    aliases: [cg]
     cmds:
       - |
         cd go && \
@@ -50,3 +50,19 @@ tasks:
           --go_out internal/gen/eliza --go_opt=paths=source_relative \
           --connect-go_out internal/gen/eliza --connect-go_opt=paths=source_relative \
           eliza.proto
+
+  run-js-dev:
+    desc: run web ui in dev mode
+    aliases: [rj]
+    cmds:
+      - |
+        cd js && \
+        esbuild src/index.ts --serve=localhost:3000 --servedir=www --outdir=www --bundle --global-name=eliza
+
+  run-go-dev:
+    desc: run connect server in dev mode
+    aliases: [rg]
+    cmds:
+      - |
+        cd go && \
+        go run main.go

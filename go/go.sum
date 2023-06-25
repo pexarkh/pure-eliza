@@ -1,5 +1,3 @@
-github.com/bufbuild/connect-demo v0.0.0-20230522121201-4d0f5a608137 h1:cEkGV9WwtM2pSBstG+ayjUKi4dC5+2uAUy4hnK0w3OM=
-github.com/bufbuild/connect-demo v0.0.0-20230522121201-4d0f5a608137/go.mod h1:2vlg809jcxnEVzKYGXIiOzSJZJNrHbahzd2UspNi6jU=
 github.com/bufbuild/connect-go v1.8.0 h1:srluNkFkZBfSfg9Qb6DrO+5nMaxix//h2ctrHZhMGKc=
 github.com/bufbuild/connect-go v1.8.0/go.mod h1:GmMJYR6orFqD0Y6ZgX8pwQ8j9baizDrIQMm1/a6LnHk=
 github.com/bufbuild/connect-grpchealth-go v1.1.1 h1:ldceS3m7+Qvl3GI4yzB4oCg3uOdD+Y1bytc/5xuMpqo=

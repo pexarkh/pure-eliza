@@ -3,7 +3,6 @@ module github.com/pexarkh/pure-eliza/go
 go 1.20
 
 require (
-	github.com/bufbuild/connect-demo v0.0.0-20230522121201-4d0f5a608137
 	github.com/bufbuild/connect-go v1.8.0
 	github.com/bufbuild/connect-grpchealth-go v1.1.1
 	github.com/bufbuild/connect-grpcreflect-go v1.1.0

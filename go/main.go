@@ -29,9 +29,9 @@ import (
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"
 	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
-	elizacore "github.com/pexarkh/pure-eliza/internal/eliza"
-	"github.com/pexarkh/pure-eliza/internal/gen/eliza"
-	"github.com/pexarkh/pure-eliza/internal/gen/eliza/elizaconnect"
+	elizacore "github.com/pexarkh/pure-eliza/go/internal/eliza"
+	"github.com/pexarkh/pure-eliza/go/internal/gen/eliza"
+	"github.com/pexarkh/pure-eliza/go/internal/gen/eliza/elizaconnect"
 	"github.com/rs/cors"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/http2"
@@ -189,6 +189,7 @@ func main() {
 		}
 	}()
 
+	log.Printf("started at %s", addr)
 	<-signals
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
