@@ -27,21 +27,21 @@ tasks:
 
   connect-gen-js:
     desc: connect generate js proto
-    aliases: [genjs]
+    aliases: [gjs]
     cmds:
       - |
         cd js && \
-        mkdir -p src/gen/eliza/v1/ && \
-        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ./proto \
-          --es_out src/gen/eliza/v1 \
+        mkdir -p src/gen/eliza && \
+        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ../proto \
+          --es_out src/gen/eliza \
           --es_opt target=js \
-          --connect-es_out src/gen/eliza/v1 \
+          --connect-es_out src/gen/eliza \
           --connect-es_opt target=js \
           eliza.proto
 
   connect-gen-go:
     desc: connect generate js proto
-    aliases: [gengo]
+    aliases: [ggo]
     cmds:
       - |
         mkdir -p internal/gen/eliza/ && \

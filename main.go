@@ -145,10 +145,10 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.Handle(
+	/* mux.Handle(
 		"/",
 		http.RedirectHandler("https://connect.build/demo", http.StatusFound),
-	)
+	) */
 	compress1KB := connect.WithCompressMinBytes(1024)
 	mux.Handle(elizaconnect.NewElizaServiceHandler(
 		NewElizaServer(*streamDelayArg),
