@@ -1,4 +1,4 @@
-module github.com/pexarkh/pure-eliza
+module github.com/pexarkh/pure-eliza/go
 
 go 1.20
 

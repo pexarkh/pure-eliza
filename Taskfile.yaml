@@ -44,8 +44,9 @@ tasks:
     aliases: [ggo]
     cmds:
       - |
+        cd go && \
         mkdir -p internal/gen/eliza/ && \
-        protoc -I ./proto \
+        protoc -I ../proto \
           --go_out internal/gen/eliza --go_opt=paths=source_relative \
           --connect-go_out internal/gen/eliza --connect-go_opt=paths=source_relative \
           eliza.proto

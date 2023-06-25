@@ -25,8 +25,8 @@ import (
 	"testing"
 
 	"github.com/bufbuild/connect-go"
-	elizav1 "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1"
-	elizav1connect "github.com/pexarkh/pure-eliza/internal/gen/eliza/v1/elizaconnect"
+	elizav1 "github.com/pexarkh/pure-eliza/go/internal/gen/eliza"
+	elizav1connect "github.com/pexarkh/pure-eliza/go/internal/gen/eliza/elizaconnect"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
