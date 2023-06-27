@@ -79,7 +79,7 @@ tasks:
     cmds:
       - |
         cd xt && \
-        esbuild src/index.ts --bundle --sourcemap --outfile=index.js --global-name=eliza
+        esbuild src/index.js --bundle --sourcemap --outfile=index.js --global-name=eliza
 
   run-go-dev:
     desc: run connect server in dev mode

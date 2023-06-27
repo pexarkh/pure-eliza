@@ -18,8 +18,8 @@ const client = createPromiseClient(
 )
 
 // Query for the common elements and cache them.
-const containerEl = document.getElementById("conversation-container") as HTMLDivElement;
-const inputEl = document.getElementById("user-input") as HTMLInputElement;
+const containerEl = document.getElementById("conversation-container");
+const inputEl = document.getElementById("user-input");
 
 // Add an event listener to the input so that the user can hit enter and click the Send button
 document.getElementById("user-input")?.addEventListener("keyup", (event) => {
@@ -36,7 +36,7 @@ document.getElementById("send-button")?.addEventListener("click", (event) => {
 });
 
 // Adds a node to the DOM representing the conversation with Eliza
-function addNode(text: string, sender: string): void {
+function addNode(text, sender) {
     const divEl = document.createElement('div');
     const pEl = document.createElement('p');
 

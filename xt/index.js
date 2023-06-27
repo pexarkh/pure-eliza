@@ -17,7 +17,7 @@ var eliza = (() => {
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  // src/index.ts
+  // src/index.js
   var src_exports = {};
   __export(src_exports, {
     handleSend: () => handleSend
@@ -3448,7 +3448,7 @@ var eliza = (() => {
     }
   };
 
-  // src/index.ts
+  // src/index.js
   var introFinished = false;
   var client = createPromiseClient(
     ElizaService,
