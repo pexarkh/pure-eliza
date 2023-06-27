@@ -26,7 +26,7 @@ tasks:
       - cd js && npm install
 
   connect-gen-js:
-    desc: connect generate js proto
+    desc: generate connect js from proto
     aliases: [cj]
     cmds:
       - |
@@ -40,7 +40,7 @@ tasks:
           eliza.proto
 
   connect-gen-go:
-    desc: connect generate js proto
+    desc: generate connect go from proto
     aliases: [cg]
     cmds:
       - |
@@ -57,7 +57,29 @@ tasks:
     cmds:
       - |
         cd js && \
-        esbuild src/index.ts --serve=localhost:3000 --servedir=www --outdir=www --bundle --global-name=eliza
+        esbuild src/index.js --serve=localhost:3000 --servedir=www --outdir=www --bundle --global-name=eliza
+
+  connect-gen-xt:
+    desc: generate connect js for the extenstion from proto
+    aliases: [cx]
+    cmds:
+      - |
+        cd xt && \
+        mkdir -p src/gen/eliza && \
+        PATH=$PATH:$(pwd)/node_modules/.bin protoc -I ../proto \
+          --es_out src/gen/eliza \
+          --es_opt target=js \
+          --connect-es_out src/gen/eliza \
+          --connect-es_opt target=js \
+          eliza.proto
+
+  bundle-xt-dev:
+    desc: bundle for the extension in dev mode
+    aliases: [bx]
+    cmds:
+      - |
+        cd xt && \
+        esbuild src/index.ts --bundle --sourcemap --outfile=index.js --global-name=eliza
 
   run-go-dev:
     desc: run connect server in dev mode
