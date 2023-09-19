@@ -1,9 +1,5 @@
-import {
-    createPromiseClient
-} from '@bufbuild/connect'
-import {
-    createConnectTransport,
-} from '@bufbuild/connect-web'
+import { createPromiseClient } from '@bufbuild/connect'
+import { createConnectTransport, } from '@bufbuild/connect-web'
 import { ElizaService } from './gen/eliza/eliza_connect.js'
 import { IntroduceRequest } from './gen/eliza/eliza_pb.js'
 

@@ -57,7 +57,7 @@ tasks:
     cmds:
       - |
         cd js && \
-        esbuild src/index.js --serve=localhost:3000 --servedir=www --outdir=www --bundle --global-name=eliza
+        esbuild ./src/index.js --serve=localhost:3000 --servedir=www --outdir=www --bundle --global-name=eliza
 
   connect-gen-xt:
     desc: generate connect js for the extenstion from proto
@@ -79,7 +79,7 @@ tasks:
     cmds:
       - |
         cd xt && \
-        esbuild src/index.js --bundle --sourcemap --outfile=index.js --global-name=eliza
+        esbuild ./src/index.js --bundle --sourcemap --outfile=index.js --global-name=eliza
 
   run-go-dev:
     desc: run connect server in dev mode
